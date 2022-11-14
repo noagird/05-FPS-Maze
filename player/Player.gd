@@ -7,7 +7,7 @@ const JUMP = 4
 const PLAYER_MOVE_SPEED = 4
 
 onready var Camera = $Camera
-onready var GRAVITY = ProjectSettings.get("physics/3d/default_gravity") / 1000
+onready var GRAVITY = ProjectSettings.get("physics/3d/default_gravity") / 500
 onready var animation_tree = $character/AnimationTree
 
 func move_forward_back(in_direction: int):

@@ -30,9 +30,6 @@ margin_right = 40.0
 margin_bottom = 14.0
 text = "FPS: 0"
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Help" type="Label" parent="."]
 margin_top = 20.0
@@ -40,9 +37,6 @@ margin_right = 106.0
 margin_bottom = 38.0
 text = "E = Flashlight
 WASD = Move"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Floor" parent="." instance=ExtResource( 5 )]
 transform = Transform( 64, 0, 0, 0, 1, 0, 0, 0, 64, 0, -2, 0 )

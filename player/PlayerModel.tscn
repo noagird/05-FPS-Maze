@@ -257,7 +257,7 @@ blend_point_2/node = SubResource( 28 )
 blend_point_2/pos = 0.0
 
 [sub_resource type="AnimationNodeBlendTree" id=13]
-graph_offset = Vector2( -800.415, 192.383 )
+graph_offset = Vector2( -322.665, 152.749 )
 nodes/Combined/node = SubResource( 30 )
 nodes/Combined/position = Vector2( 0, 220 )
 nodes/output/position = Vector2( 430, 230 )
@@ -609,7 +609,6 @@ bones/65/bound_children = [  ]
 layers = 524288
 mesh = SubResource( 1 )
 skin = SubResource( 2 )
-material/0 = null
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 13 )
