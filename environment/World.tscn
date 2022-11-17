@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://FPSCounter.gd" type="Script" id=1]
+[ext_resource path="res://Key/key.tscn" type="PackedScene" id=2]
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://environment/Wall.tscn" type="PackedScene" id=4]
 [ext_resource path="res://environment/Floor.tscn" type="PackedScene" id=5]
-[ext_resource path="res://environment/Ball.tscn" type="PackedScene" id=6]
-[ext_resource path="res://environment/wall_material.tres" type="Material" id=7]
+[ext_resource path="res://environment/Ceiling.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Exit/Exit.gd" type="Script" id=8]
 
 [sub_resource type="ProceduralSky" id=8]
 sky_top_color = Color( 0.0588235, 0.337255, 0.556863, 1 )
@@ -23,7 +24,10 @@ fog_color = Color( 0.160784, 0.301961, 0.466667, 1 )
 fog_depth_end = 30.0
 ssao_intensity = 4.0
 
-[node name="Spatial" type="Spatial"]
+[sub_resource type="SphereShape" id=9]
+radius = 0.5
+
+[node name="World" type="Spatial"]
 
 [node name="FPSCounter" type="Label" parent="."]
 margin_right = 40.0
@@ -41,28 +45,38 @@ WASD = Move"
 [node name="Floor" parent="." instance=ExtResource( 5 )]
 transform = Transform( 64, 0, 0, 0, 1, 0, 0, 0, 64, 0, -2, 0 )
 
-[node name="Ball1" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
-
-[node name="Ball2" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -3 )
-
-[node name="Ball3" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -3 )
-
-[node name="Wall" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35862, -8.1876 )
-material/0 = ExtResource( 7 )
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 7 )
 
 [node name="Sun" type="DirectionalLight" parent="WorldEnvironment"]
-transform = Transform( -0.5, -0.296198, 0.813798, 0, 0.939693, 0.34202, -0.866025, 0.17101, -0.469846, 0, 0, 0 )
+transform = Transform( -0.5, -0.296198, 0.813798, 0, 0.939693, 0.34202, -0.866025, 0.17101, -0.469847, 0, 0, 0 )
 layers = 262144
-light_color = Color( 0.94902, 0.580392, 0.247059, 1 )
+light_color = Color( 0.584314, 0.282353, 0.0352941, 1 )
 light_cull_mask = 4294443007
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+
+[node name="key" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, -0.476326, -5.30942 )
+
+[node name="Exit" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.03822, 0, -3.30747 )
+script = ExtResource( 8 )
+
+[node name="Exit_Light" type="OmniLight" parent="Exit"]
+light_color = Color( 1, 0, 0, 1 )
+light_energy = 2.174
+omni_attenuation = 2.2974
+
+[node name="CollisionShape" type="CollisionShape" parent="Exit"]
+shape = SubResource( 9 )
+
+[node name="Wall" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35862, -8.11451 )
+
+[node name="Ceiling" parent="." instance=ExtResource( 7 )]
+transform = Transform( 64, 0, 0, 0, 1, 0, 0, 0, 64, 0, 3.9363, 0 )
+
+[connection signal="body_entered" from="Exit" to="Exit" method="_on_Exit_body_entered"]

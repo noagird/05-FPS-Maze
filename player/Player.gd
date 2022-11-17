@@ -8,7 +8,7 @@ const PLAYER_MOVE_SPEED = 4
 
 onready var Camera = $Camera
 onready var GRAVITY = ProjectSettings.get("physics/3d/default_gravity") / 500
-onready var animation_tree = $character/AnimationTree
+onready var animation_tree = $Player/AnimationTree
 
 func move_forward_back(in_direction: int):
 	"""
