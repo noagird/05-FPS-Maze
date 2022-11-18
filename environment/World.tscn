@@ -1,12 +1,15 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://FPSCounter.gd" type="Script" id=1]
 [ext_resource path="res://Key/key.tscn" type="PackedScene" id=2]
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://environment/Wall.tscn" type="PackedScene" id=4]
 [ext_resource path="res://environment/Floor.tscn" type="PackedScene" id=5]
+[ext_resource path="res://environment/Lamps.tscn" type="PackedScene" id=6]
 [ext_resource path="res://environment/Ceiling.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Exit/Exit.gd" type="Script" id=8]
+[ext_resource path="res://Monster/Monster.tscn" type="PackedScene" id=9]
+[ext_resource path="res://environment/World.gd" type="Script" id=10]
 
 [sub_resource type="ProceduralSky" id=8]
 sky_top_color = Color( 0.0588235, 0.337255, 0.556863, 1 )
@@ -18,16 +21,22 @@ sun_latitude = 5.0
 sun_longitude = 60.0
 
 [sub_resource type="Environment" id=7]
-background_mode = 2
+background_mode = 1
 background_sky = SubResource( 8 )
+background_color = Color( 0.0509804, 0.0509804, 0.0509804, 1 )
 fog_color = Color( 0.160784, 0.301961, 0.466667, 1 )
 fog_depth_end = 30.0
 ssao_intensity = 4.0
 
 [sub_resource type="SphereShape" id=9]
-radius = 0.5
+radius = 1.75
+
+[sub_resource type="NavigationMesh" id=10]
+vertices = PoolVector3Array( -30.2352, 4.25, -39, -39.9852, 4.25, -39, -39.2352, 4.25, -38.5, -29.7352, 4.25, -38.75, 29.2648, 4.25, -38.75, 39.0148, 4.25, -38.5, 39.0148, 4.25, -39, 29.0148, 4.25, -39, -20.2352, 4.25, -39, -30.2352, 4.25, -39, -29.7352, 4.25, -38.75, -19.7352, 4.25, -38.75, -0.485226, 4.25, -38.75, 9.26477, 4.25, -38.75, 9.26477, 4.25, -39, -0.485226, 4.25, -39, -10.4852, 4.25, -39, -20.2352, 4.25, -39, -19.7352, 4.25, -38.75, -9.98523, 4.25, -38.75, 9.26477, 4.25, -38.75, 19.2648, 4.25, -38.75, 19.2648, 4.25, -39, 9.26477, 4.25, -39, -0.485226, 4.25, -39, -10.4852, 4.25, -39, -9.98523, 4.25, -38.75, -0.485226, 4.25, -38.75, 19.2648, 4.25, -38.75, 29.2648, 4.25, -38.75, 29.0148, 4.25, -39, 19.2648, 4.25, -39, -29.9852, -0.5, -37.75, -37.7352, -0.5, -37.75, -37.7352, -0.5, -31.75, -37.7352, -0.5, 5.75, -37.7352, -0.5, 12, -29.9852, -0.5, 12, -5.98523, -0.5, -31.75, -5.98523, -0.5, -37.75, -13.9852, -0.5, -37.75, -13.9852, -0.5, 12, -5.98523, -0.5, 12, -5.98523, -0.5, 5.75, -29.9852, -0.5, -37.75, -37.7352, -0.5, -31.75, -37.7352, -0.5, -25.5, -5.98523, -0.5, -25.5, -5.98523, -0.5, -31.75, -13.9852, -0.5, -37.75, -37.7352, -0.5, -0.5, -37.7352, -0.5, 5.75, -29.9852, -0.5, 12, -13.9852, -0.5, 12, -5.98523, -0.5, 5.75, -5.98523, -0.5, -0.5, -21.9852, -0.5, -37.75, -29.9852, -0.5, -37.75, -37.7352, -0.5, -25.5, -37.7352, -0.5, -19.25, -37.7352, -0.5, -0.5, -29.9852, -0.5, 12, -21.9852, -0.5, 12, -37.7352, -0.5, -6.75, -5.98523, -0.5, -25.5, -13.9852, -0.5, -37.75, -21.9852, -0.5, -37.75, -5.98523, -0.5, -19.25, -21.9852, -0.5, 12, -13.9852, -0.5, 12, -5.98523, -0.5, -0.5, -5.98523, -0.5, -6.75, -37.7352, -0.5, -13, -37.7352, -0.5, -6.75, -21.9852, -0.5, 12, -5.98523, -0.5, -6.75, -5.98523, -0.5, -13, -21.9852, -0.5, -37.75, -5.98523, -0.5, -13, -5.98523, -0.5, -19.25, -21.9852, -0.5, -37.75, -21.9852, -0.5, -37.75, -37.7352, -0.5, -19.25, -37.7352, -0.5, -13, 2.01477, -0.5, -33.75, 3.01477, -0.5, -34, 3.01477, -0.5, -37.75, 2.01477, -0.5, -33.75, 3.01477, -0.5, -37.75, -3.73523, -0.5, -37.75, -3.73523, -0.5, -30.75, 2.01477, -0.5, -21.5, -3.73523, -0.5, -23.5, -3.73523, -0.5, -16.25, 2.01477, -0.5, -15.25, 2.01477, -0.5, -27.75, 2.01477, -0.5, -33.75, -3.73523, -0.5, -30.75, 2.01477, -0.5, -27.75, -3.73523, -0.5, -30.75, -3.73523, -0.5, -23.5, 2.01477, -0.5, -21.5, -3.73523, -0.5, -9, 2.01477, -0.5, -9, 2.01477, -0.5, -15.25, -3.73523, -0.5, -16.25, 4.26477, -0.5, -33.75, 4.26477, -0.5, -32, 8.01477, -0.5, -32, 8.01477, -0.5, -33.75, 3.01477, -0.5, -37.75, 3.01477, -0.5, -34, 4.26477, -0.5, -33.75, 8.01477, -0.5, -33.75, 9.76477, -0.5, -34, 9.51477, -0.5, -37.75, 16.5148, -0.5, -37.75, 9.51477, -0.5, -37.75, 9.76477, -0.5, -34, 16.7648, -0.5, -34, 30.7648, -0.5, -37.75, 23.7648, -0.5, -37.75, 23.7648, -0.5, -34, 30.7648, -0.5, -34, 23.7648, -0.5, -37.75, 16.5148, -0.5, -37.75, 16.7648, -0.5, -34, 23.7648, -0.5, -34, 30.7648, -0.5, -34, 38.0148, -0.5, -34, 38.0148, -0.5, -37.75, 30.7648, -0.5, -37.75, 9.01477, 4.25, -33, 9.01477, 4.25, -32.5, 16.2648, 4.25, -32.75, 16.5148, 4.25, -33, 31.5148, 4.25, -33, 24.0148, 4.25, -33, 24.0148, 4.25, -32.75, 31.5148, 4.25, -32.75, 16.5148, 4.25, -33, 16.2648, 4.25, -32.75, 24.0148, 4.25, -32.75, 24.0148, 4.25, -33, 31.5148, 4.25, -32.75, 39.0148, 4.25, -32.5, 39.0148, 4.25, -33.25, 31.5148, 4.25, -33, 8.01477, -0.5, -25.25, 8.01477, -0.5, -32, 4.26477, -0.5, -32, 4.26477, -0.5, -25.25, 4.26477, -0.5, -25.25, 4.26477, -0.5, -18.25, 8.01477, -0.5, -18.5, 8.01477, -0.5, -25.25, 10.2648, -0.5, -25.5, 10.2648, -0.5, -19, 17.5148, -0.5, -19, 17.7648, -0.5, -31.75, 10.2648, -0.5, -31.75, 10.2648, -0.5, -25.5, 17.5148, -0.5, -19, 19.0148, -0.5, -19, 19.2648, -0.5, -18, 24.5148, -0.5, -18, 24.7648, -0.5, -31.75, 17.7648, -0.5, -31.75, 17.7648, -0.5, -31.75, 17.5148, -0.5, -19, 19.0148, -0.5, -19, 26.2648, -0.5, -11.5, 30.0148, -0.5, -11.25, 30.2648, -0.5, -13, 26.2648, -0.5, -17.75, 24.7648, -0.5, -31.75, 24.5148, -0.5, -18, 26.2648, -0.5, -17.75, 38.0148, -0.5, -22.5, 31.2648, -0.5, -31.75, 38.0148, -0.5, -22.5, 38.0148, -0.5, -31.75, 31.2648, -0.5, -31.75, 30.2648, -0.5, -13, 38.0148, -0.5, -13, 38.0148, -0.5, -22.5, 26.2648, -0.5, -17.75, 8.26477, -0.5, -13, 10.0148, -0.5, -13, 10.0148, -0.5, -16.75, 8.26477, -0.5, -16.75, 4.26477, -0.5, -18.25, 4.26477, -0.5, -11.5, 8.01477, -0.5, -11.25, 8.26477, -0.5, -13, 8.26477, -0.5, -16.75, 8.01477, -0.5, -18.5, 9.01477, 4.25, -18.25, 9.01477, 4.25, -17.75, 18.0148, 4.25, -17.75, 19.0148, 4.25, -17, 19.0148, 4.25, -16.5, 25.0148, 4.25, -16.5, 25.0148, 4.25, -17, 10.0148, -0.5, -13, 18.0148, -0.5, -13, 18.0148, -0.5, -16.75, 10.0148, -0.5, -16.75, 20.2648, -0.5, -3.75, 24.0148, -0.5, -3.75, 24.0148, -0.5, -15.75, 20.2648, -0.5, -15.75, 9.01477, 4.25, -12, 9.01477, 4.25, -11.5, 19.0148, 4.25, -11.5, 19.0148, 4.25, -12.25, 31.0148, 4.25, -12, 31.0148, 4.25, -11.5, 39.0148, 4.25, -11.5, 39.0148, 4.25, -12.25, 4.26477, -0.5, -3.25, 8.01477, -0.5, -3.5, 8.01477, -0.5, -11.25, 4.26477, -0.5, -11.5, 30.0148, -0.5, -11.25, 26.2648, -0.5, -11.5, 26.2648, -0.5, -4, 30.0148, -0.5, -4, 10.2648, -0.5, -10.75, 10.2648, -0.5, -8, 18.0148, -0.5, -8, 18.0148, -0.5, -10.75, 32.2648, -0.5, -3.5, 38.0148, -0.5, -3.25, 38.0148, -0.5, -10.75, 32.2648, -0.5, -10.75, -4.98523, 4.25, -8.25, -4.98523, 4.25, -7.5, 3.01477, 4.25, -7.5, 3.01477, 4.25, -8.25, 9.01477, 4.25, -7.25, 9.01477, 4.25, -6.5, 19.0148, 4.25, -6.5, 19.0148, 4.25, -7.25, -1.98523, -0.5, -3.75, 2.01477, -0.5, -4, 2.01477, -0.5, -6.75, -3.73523, -0.5, -6.75, -3.73523, -0.5, 2, -1.73523, -0.5, 2, -1.73523, -0.5, -1.75, -1.98523, -0.5, -3.75, -3.73523, -0.5, -6.75, -1.73523, -0.5, 2, 2.01477, -0.5, 2, 2.01477, -0.5, -1.75, -1.73523, -0.5, -1.75, 10.2648, -0.5, -5.75, 10.2648, -0.5, -4, 18.0148, -0.5, -4, 18.0148, -0.5, -5.75, 20.0148, -0.5, -1.75, 18.2648, -0.5, -1.75, 18.2648, -0.5, 2, 20.0148, -0.5, 2, 24.2648, -0.5, -1.75, 24.0148, -0.5, -3.75, 20.2648, -0.5, -3.75, 20.0148, -0.5, -1.75, 20.0148, -0.5, 2, 20.2648, -0.5, 4, 24.0148, -0.5, 4, 24.2648, -0.5, 2, 24.2648, -0.5, -1.75, 20.0148, -0.5, -1.75, 24.2648, -0.5, 2, 30.2648, -0.5, 2, 30.2648, -0.5, -1.75, 24.2648, -0.5, -1.75, 8.51477, -0.5, 2, 10.0148, -0.5, 2, 10.0148, -0.5, -1.75, 8.26477, -0.5, -1.75, 8.26477, -0.5, -1.75, 8.01477, -0.5, -3.5, 4.26477, -0.5, -3.25, 4.26477, -0.5, 1.75, 8.51477, -0.5, 2, 30.2648, -0.5, -1.75, 30.2648, -0.5, 2, 32.0148, -0.5, 2, 32.0148, -0.5, -1.75, 32.2648, -0.5, -3.5, 32.0148, -0.5, -1.75, 32.0148, -0.5, 2, 32.2648, -0.5, 3.75, 38.0148, -0.5, 3.5, 38.0148, -0.5, -3.25, -0.985226, 4.25, -3, 3.01477, 4.25, -2.5, 3.01477, 4.25, -3.25, 9.01477, 4.25, -3.25, 9.01477, 4.25, -2.75, 19.0148, 4.25, -2.75, 19.0148, 4.25, -3.25, 25.0148, 4.25, -3.25, 25.0148, 4.25, -2.75, 31.0148, 4.25, -2.75, 31.0148, 4.25, -3.25, 10.0148, -0.5, 2, 18.2648, -0.5, 2, 18.2648, -0.5, -1.75, 10.0148, -0.5, -1.75, -1.73523, -0.5, 4.25, -1.73523, -0.5, 2, -3.73523, -0.5, 2, -3.73523, -0.5, 6, 4.01477, -0.5, 6, 4.01477, -0.5, 4.25, -1.73523, -0.5, 4.25, -3.73523, -0.5, 6, 8.01477, -0.5, 2.25, 8.51477, -0.5, 2, 4.26477, -0.5, 1.75, 4.01477, -0.5, 4.25, 4.01477, -0.5, 6, 4.26477, -0.5, 8, 8.01477, -0.5, 8, 8.01477, -0.5, 2.25, 4.26477, -0.5, 1.75, -0.985226, 4.25, 3, 3.01477, 4.25, 3.25, 3.01477, 4.25, 2.75, 9.01477, 4.25, 3, 9.01477, 4.25, 3.5, 19.0148, 4.25, 3.5, 19.0148, 4.25, 3, 25.0148, 4.25, 3, 25.0148, 4.25, 3.5, 31.0148, 4.25, 3.5, 31.0148, 4.25, 3, 32.2648, -0.5, 3.75, 32.2648, -0.5, 12, 38.0148, -0.5, 12, 38.0148, -0.5, 3.5, 20.2648, -0.5, 12.25, 24.0148, -0.5, 12.25, 24.0148, -0.5, 4, 20.2648, -0.5, 4, 10.2648, -0.5, 4.25, 10.2648, -0.5, 6, 18.0148, -0.5, 6, 18.0148, -0.5, 4.25, 26.2648, -0.5, 4.25, 26.2648, -0.5, 12, 30.0148, -0.5, 12, 30.0148, -0.5, 4.25, -4.98523, 4.25, 6.75, -4.98523, 4.25, 7.5, 3.01477, 4.25, 7.25, 9.01477, 4.25, 7.25, 19.0148, 4.25, 7.5, 19.0148, 4.25, 6.75, 9.01477, 4.25, 6.75, 9.51477, -0.5, 12, 9.76477, -0.5, 8.25, 8.01477, -0.5, 8, 4.26477, -0.5, 8, 2.76477, -0.5, 12, -3.73523, -0.5, 8.25, -3.73523, -0.5, 12, 2.76477, -0.5, 12, 4.26477, -0.5, 8, 18.0148, -0.5, 12, 18.0148, -0.5, 8.25, 9.76477, -0.5, 8.25, 9.51477, -0.5, 12, 24.0148, -0.5, 14, 20.2648, -0.5, 14, 18.5148, -0.5, 14.25, 18.7648, -0.5, 17, 25.5148, -0.5, 17, 25.7648, -0.5, 14.25, 24.0148, -0.5, 14, 24.0148, -0.5, 12.25, 20.2648, -0.5, 12.25, 20.2648, -0.5, 14, -32.9852, 4.25, 13, -39.9852, 4.25, 13, -39.2352, 4.25, 13.5, -32.2352, 4.25, 13.25, -3.48523, 4.25, 13, -10.4852, 4.25, 13, -9.98523, 4.25, 13.25, -3.23523, 4.25, 13.25, -25.4852, 4.25, 13, -32.9852, 4.25, 13, -32.2352, 4.25, 13.25, -24.7352, 4.25, 13.25, 19.0148, 4.25, 13.25, 19.0148, 4.25, 12.75, 11.5148, 4.25, 13, 11.5148, 4.25, 13.25, -17.9852, 4.25, 13, -25.4852, 4.25, 13, -24.7352, 4.25, 13.25, -17.4852, 4.25, 13.25, 4.01477, 4.25, 13, -3.48523, 4.25, 13, -3.23523, 4.25, 13.25, 4.26477, 4.25, 13.25, -10.4852, 4.25, 13, -17.9852, 4.25, 13, -17.4852, 4.25, 13.25, -9.98523, 4.25, 13.25, 11.5148, 4.25, 13, 4.01477, 4.25, 13, 4.26477, 4.25, 13.25, 11.5148, 4.25, 13.25, 31.7648, 4.25, 13, 25.0148, 4.25, 12.75, 25.0148, 4.25, 13.25, 32.0148, 4.25, 13.5, 32.0148, 4.25, 13.5, 39.0148, 4.25, 13.5, 39.0148, 4.25, 12.75, 31.7648, 4.25, 13, -29.7352, -0.5, 14.25, -37.7352, -0.5, 14.25, -37.7352, -0.5, 23, -4.98523, -0.5, 23, -4.98523, -0.5, 14.25, -13.2352, -0.5, 14.25, -37.7352, -0.5, 23, -37.7352, -0.5, 32, -29.7352, -0.5, 32, -13.2352, -0.5, 32, -4.98523, -0.5, 32, -4.98523, -0.5, 23, -13.2352, -0.5, 32, -4.98523, -0.5, 23, -13.2352, -0.5, 14.25, -21.4852, -0.5, 14.25, -21.4852, -0.5, 32, -29.7352, -0.5, 14.25, -37.7352, -0.5, 23, -29.7352, -0.5, 32, -21.4852, -0.5, 32, -21.4852, -0.5, 14.25, 1.01477, -0.5, 17.25, 2.76477, -0.5, 17, 2.51477, -0.5, 14.25, -2.73523, -0.5, 14.25, -2.73523, -0.5, 23.5, 1.51477, -0.5, 23.25, 1.01477, -0.5, 23, -2.73523, -0.5, 23.5, 1.01477, -0.5, 23, 1.01477, -0.5, 17.25, -2.73523, -0.5, 14.25, 10.7648, -0.5, 17, 18.7648, -0.5, 17, 18.5148, -0.5, 14.25, 10.5148, -0.5, 14.25, 10.5148, -0.5, 14.25, 2.51477, -0.5, 14.25, 2.76477, -0.5, 17, 10.7648, -0.5, 17, 25.7648, -0.5, 14.25, 25.5148, -0.5, 17, 27.2648, -0.5, 17.25, 31.0148, -0.5, 14.25, 27.2648, -0.5, 23, 26.7648, -0.5, 23.25, 31.0148, -0.5, 23.5, 27.2648, -0.5, 17.25, 27.2648, -0.5, 23, 31.0148, -0.5, 23.5, 31.0148, -0.5, 14.25, 33.2648, -0.5, 34, 31.5148, -0.5, 34.25, 31.7648, -0.5, 38, 38.0148, -0.5, 38, 38.0148, -0.5, 14.25, 33.2648, -0.5, 14.25, 33.2648, -0.5, 24, 38.0148, -0.5, 26, 33.2648, -0.5, 34, 38.0148, -0.5, 38, 38.0148, -0.5, 26, 33.2648, -0.5, 24, 2.01477, 4.25, 18, 2.01477, 4.25, 18.5, 7.76477, 4.25, 18.25, 20.0148, 4.25, 18.25, 26.0148, 4.25, 18.5, 26.0148, 4.25, 18, 20.0148, 4.25, 18.25, 26.0148, 4.25, 18, 14.0148, 4.25, 18, 14.0148, 4.25, 18.25, 7.76477, 4.25, 18.25, 14.0148, 4.25, 18.25, 14.0148, 4.25, 18, 2.01477, 4.25, 18, 3.26477, -0.5, 19.25, 3.26477, -0.5, 21, 14.0148, -0.5, 21, 14.0148, -0.5, 19.25, 14.0148, -0.5, 21, 25.0148, -0.5, 21, 25.0148, -0.5, 19.25, 14.0148, -0.5, 19.25, 7.76477, 4.25, 22, 2.01477, 4.25, 21.75, 2.01477, 4.25, 22.25, 26.0148, 4.25, 22.25, 26.0148, 4.25, 21.75, 20.0148, 4.25, 22, 14.0148, 4.25, 22.25, 26.0148, 4.25, 22.25, 20.0148, 4.25, 22, 14.0148, 4.25, 22, 14.0148, 4.25, 22.25, 14.0148, 4.25, 22, 7.76477, 4.25, 22, 2.01477, 4.25, 22.25, 1.01477, -0.5, 27.25, 3.01477, -0.5, 27, 3.01477, -0.5, 23.25, 1.51477, -0.5, 23.25, -2.73523, -0.5, 23.5, -2.73523, -0.5, 32.25, 1.01477, -0.5, 32.25, 1.01477, -0.5, 27.25, -2.73523, -0.5, 23.5, 14.0148, -0.5, 23.25, 3.01477, -0.5, 23.25, 3.01477, -0.5, 27, 14.0148, -0.5, 27, 14.0148, -0.5, 27, 25.2648, -0.5, 27, 25.2648, -0.5, 23.25, 14.0148, -0.5, 23.25, 27.2648, -0.5, 29, 25.5148, -0.5, 29.25, 25.7648, -0.5, 32, 31.0148, -0.5, 32, 26.7648, -0.5, 23.25, 25.2648, -0.5, 23.25, 25.2648, -0.5, 27, 27.2648, -0.5, 27.25, 31.0148, -0.5, 23.5, 27.2648, -0.5, 27.25, 27.2648, -0.5, 29, 31.0148, -0.5, 32, 31.0148, -0.5, 23.5, 19.7648, 4.25, 28.25, 26.0148, 4.25, 28.25, 20.0148, 4.25, 28, 19.7648, 4.25, 28.25, 20.0148, 4.25, 28, 14.0148, 4.25, 28, 13.7648, 4.25, 28.25, 2.01477, 4.25, 28, 2.01477, 4.25, 28.5, 13.7648, 4.25, 28.25, 14.0148, 4.25, 28, 14.2648, -0.5, 29.25, 3.26477, -0.5, 29.25, 3.26477, -0.5, 32, 14.5148, -0.5, 32, 14.5148, -0.5, 32, 25.7648, -0.5, 32, 25.5148, -0.5, 29.25, 14.2648, -0.5, 29.25, 1.01477, -0.5, 34, 1.01477, -0.5, 32.25, -2.73523, -0.5, 32.25, -2.73523, -0.5, 34, 1.01477, -0.5, 34, -2.73523, -0.5, 34, -4.48523, -0.5, 34.25, -4.23523, -0.5, 38, 2.51477, -0.5, 38, 2.76477, -0.5, 34.25, -38.9852, 4.25, 32.75, -38.9852, 4.25, 33.5, -30.4852, 4.25, 33.25, -30.4852, 4.25, 33, -21.4852, 4.25, 33, -21.7352, 4.25, 33.25, -12.9852, 4.25, 33.25, -12.7352, 4.25, 33, -3.98523, 4.25, 33.25, -3.98523, 4.25, 32.75, -12.7352, 4.25, 33, -12.9852, 4.25, 33.25, -30.4852, 4.25, 33, -30.4852, 4.25, 33.25, -21.7352, 4.25, 33.25, -21.4852, 4.25, 33, 9.26477, 4.25, 33, 2.01477, 4.25, 32.75, 2.01477, 4.25, 33.25, 9.51477, 4.25, 33.25, 17.0148, 4.25, 33.25, 24.5148, 4.25, 33.25, 24.5148, 4.25, 33, 17.0148, 4.25, 33, 32.0148, 4.25, 33.25, 32.0148, 4.25, 32.75, 24.5148, 4.25, 33, 24.5148, 4.25, 33.25, 17.0148, 4.25, 33, 9.26477, 4.25, 33, 9.51477, 4.25, 33.25, 17.0148, 4.25, 33.25, -29.4852, -0.5, 34.25, -37.7352, -0.5, 34.25, -37.7352, -0.5, 38, -29.4852, -0.5, 38, -12.7352, -0.5, 38, -4.23523, -0.5, 38, -4.48523, -0.5, 34.25, -12.9852, -0.5, 34.25, -21.2352, -0.5, 34.25, -29.4852, -0.5, 34.25, -29.4852, -0.5, 38, -20.9852, -0.5, 38, -20.9852, -0.5, 38, -12.7352, -0.5, 38, -12.9852, -0.5, 34.25, -21.2352, -0.5, 34.25, 2.76477, -0.5, 34.25, 2.51477, -0.5, 38, 9.76477, -0.5, 38, 9.76477, -0.5, 34.25, 17.0148, -0.5, 38, 24.2648, -0.5, 38, 24.2648, -0.5, 34.25, 17.0148, -0.5, 34.25, 24.2648, -0.5, 38, 31.7648, -0.5, 38, 31.5148, -0.5, 34.25, 24.2648, -0.5, 34.25, 17.0148, -0.5, 34.25, 9.76477, -0.5, 34.25, 9.76477, -0.5, 38, 17.0148, -0.5, 38, -30.7352, 4.25, 39, -39.9852, 4.25, 39, -30.4852, 4.25, 39.25, 39.0148, 4.25, 39.25, 39.0148, 4.25, 38.75, 29.2648, 4.25, 39, 29.0148, 4.25, 39.25, -10.7352, 4.25, 39.25, -0.735226, 4.25, 39.25, -0.735226, 4.25, 39, -10.7352, 4.25, 39, 29.0148, 4.25, 39.25, 29.2648, 4.25, 39, 19.2648, 4.25, 39, 19.0148, 4.25, 39.25, -20.4852, 4.25, 39.25, -10.7352, 4.25, 39.25, -10.7352, 4.25, 39, -20.7352, 4.25, 39, 19.0148, 4.25, 39.25, 19.2648, 4.25, 39, 9.26477, 4.25, 39, 9.01477, 4.25, 39.25, -30.4852, 4.25, 39.25, -20.4852, 4.25, 39.25, -20.7352, 4.25, 39, -30.7352, 4.25, 39, 9.01477, 4.25, 39.25, 9.26477, 4.25, 39, -0.735226, 4.25, 39, -0.735226, 4.25, 39.25 )
+polygons = [ PoolIntArray( 3, 2, 0 ), PoolIntArray( 0, 2, 1 ), PoolIntArray( 5, 4, 6 ), PoolIntArray( 6, 4, 7 ), PoolIntArray( 11, 10, 8 ), PoolIntArray( 8, 10, 9 ), PoolIntArray( 15, 14, 12 ), PoolIntArray( 12, 14, 13 ), PoolIntArray( 19, 18, 16 ), PoolIntArray( 16, 18, 17 ), PoolIntArray( 23, 22, 20 ), PoolIntArray( 20, 22, 21 ), PoolIntArray( 27, 26, 24 ), PoolIntArray( 24, 26, 25 ), PoolIntArray( 31, 30, 28 ), PoolIntArray( 28, 30, 29 ), PoolIntArray( 34, 33, 32 ), PoolIntArray( 37, 36, 35 ), PoolIntArray( 40, 39, 38 ), PoolIntArray( 43, 42, 41 ), PoolIntArray( 46, 45, 44 ), PoolIntArray( 49, 48, 47 ), PoolIntArray( 52, 51, 50 ), PoolIntArray( 55, 54, 53 ), PoolIntArray( 58, 57, 59 ), PoolIntArray( 59, 57, 56 ), PoolIntArray( 60, 63, 61 ), PoolIntArray( 61, 63, 62 ), PoolIntArray( 64, 67, 65 ), PoolIntArray( 65, 67, 66 ), PoolIntArray( 70, 69, 71 ), PoolIntArray( 71, 69, 68 ), PoolIntArray( 73, 72, 74 ), PoolIntArray( 74, 72, 75 ), PoolIntArray( 75, 72, 76 ), PoolIntArray( 76, 72, 77 ), PoolIntArray( 80, 79, 78 ), PoolIntArray( 83, 82, 81 ), PoolIntArray( 86, 85, 84 ), PoolIntArray( 88, 87, 89 ), PoolIntArray( 89, 87, 90 ), PoolIntArray( 94, 93, 91 ), PoolIntArray( 91, 93, 92 ), PoolIntArray( 97, 96, 95 ), PoolIntArray( 101, 100, 98 ), PoolIntArray( 98, 100, 99 ), PoolIntArray( 103, 102, 104 ), PoolIntArray( 104, 102, 105 ), PoolIntArray( 109, 108, 106 ), PoolIntArray( 106, 108, 107 ), PoolIntArray( 111, 110, 112 ), PoolIntArray( 112, 110, 113 ), PoolIntArray( 113, 110, 114 ), PoolIntArray( 114, 110, 115 ), PoolIntArray( 119, 118, 116 ), PoolIntArray( 116, 118, 117 ), PoolIntArray( 123, 122, 120 ), PoolIntArray( 120, 122, 121 ), PoolIntArray( 127, 126, 124 ), PoolIntArray( 124, 126, 125 ), PoolIntArray( 131, 130, 128 ), PoolIntArray( 128, 130, 129 ), PoolIntArray( 133, 132, 134 ), PoolIntArray( 134, 132, 135 ), PoolIntArray( 139, 138, 136 ), PoolIntArray( 136, 138, 137 ), PoolIntArray( 143, 142, 140 ), PoolIntArray( 140, 142, 141 ), PoolIntArray( 147, 146, 144 ), PoolIntArray( 144, 146, 145 ), PoolIntArray( 151, 150, 148 ), PoolIntArray( 148, 150, 149 ), PoolIntArray( 155, 154, 152 ), PoolIntArray( 152, 154, 153 ), PoolIntArray( 158, 157, 156 ), PoolIntArray( 160, 159, 161 ), PoolIntArray( 161, 159, 162 ), PoolIntArray( 164, 163, 165 ), PoolIntArray( 165, 163, 166 ), PoolIntArray( 166, 163, 167 ), PoolIntArray( 170, 169, 168 ), PoolIntArray( 172, 171, 173 ), PoolIntArray( 173, 171, 174 ), PoolIntArray( 177, 176, 178 ), PoolIntArray( 178, 176, 179 ), PoolIntArray( 179, 176, 175 ), PoolIntArray( 182, 181, 180 ), PoolIntArray( 183, 186, 184 ), PoolIntArray( 184, 186, 185 ), PoolIntArray( 190, 189, 187 ), PoolIntArray( 187, 189, 188 ), PoolIntArray( 196, 195, 191 ), PoolIntArray( 191, 195, 194 ), PoolIntArray( 191, 194, 193 ), PoolIntArray( 191, 193, 192 ), PoolIntArray( 199, 198, 197 ), PoolIntArray( 203, 202, 200 ), PoolIntArray( 200, 202, 201 ), PoolIntArray( 207, 206, 204 ), PoolIntArray( 204, 206, 205 ), PoolIntArray( 211, 210, 208 ), PoolIntArray( 208, 210, 209 ), PoolIntArray( 213, 212, 214 ), PoolIntArray( 214, 212, 215 ), PoolIntArray( 217, 216, 218 ), PoolIntArray( 218, 216, 219 ), PoolIntArray( 221, 220, 222 ), PoolIntArray( 222, 220, 223 ), PoolIntArray( 227, 226, 224 ), PoolIntArray( 224, 226, 225 ), PoolIntArray( 231, 230, 228 ), PoolIntArray( 228, 230, 229 ), PoolIntArray( 235, 234, 232 ), PoolIntArray( 232, 234, 233 ), PoolIntArray( 239, 238, 236 ), PoolIntArray( 236, 238, 237 ), PoolIntArray( 243, 242, 240 ), PoolIntArray( 240, 242, 241 ), PoolIntArray( 245, 244, 246 ), PoolIntArray( 246, 244, 247 ), PoolIntArray( 249, 248, 250 ), PoolIntArray( 250, 248, 251 ), PoolIntArray( 251, 248, 252 ), PoolIntArray( 256, 255, 253 ), PoolIntArray( 253, 255, 254 ), PoolIntArray( 260, 259, 257 ), PoolIntArray( 257, 259, 258 ), PoolIntArray( 264, 263, 261 ), PoolIntArray( 261, 263, 262 ), PoolIntArray( 266, 265, 267 ), PoolIntArray( 267, 265, 268 ), PoolIntArray( 270, 269, 271 ), PoolIntArray( 271, 269, 272 ), PoolIntArray( 272, 269, 274 ), PoolIntArray( 272, 274, 273 ), PoolIntArray( 278, 277, 275 ), PoolIntArray( 275, 277, 276 ), PoolIntArray( 280, 279, 281 ), PoolIntArray( 281, 279, 282 ), PoolIntArray( 284, 283, 285 ), PoolIntArray( 285, 283, 286 ), PoolIntArray( 286, 283, 287 ), PoolIntArray( 291, 290, 288 ), PoolIntArray( 288, 290, 289 ), PoolIntArray( 293, 292, 294 ), PoolIntArray( 294, 292, 295 ), PoolIntArray( 295, 292, 297 ), PoolIntArray( 295, 297, 296 ), PoolIntArray( 300, 299, 298 ), PoolIntArray( 304, 303, 301 ), PoolIntArray( 301, 303, 302 ), PoolIntArray( 308, 307, 305 ), PoolIntArray( 305, 307, 306 ), PoolIntArray( 312, 311, 309 ), PoolIntArray( 309, 311, 310 ), PoolIntArray( 314, 313, 315 ), PoolIntArray( 315, 313, 316 ), PoolIntArray( 318, 317, 319 ), PoolIntArray( 319, 317, 320 ), PoolIntArray( 323, 322, 321 ), PoolIntArray( 325, 324, 326 ), PoolIntArray( 326, 324, 329 ), PoolIntArray( 326, 329, 328 ), PoolIntArray( 326, 328, 327 ), PoolIntArray( 332, 331, 330 ), PoolIntArray( 336, 335, 333 ), PoolIntArray( 333, 335, 334 ), PoolIntArray( 340, 339, 337 ), PoolIntArray( 337, 339, 338 ), PoolIntArray( 342, 341, 343 ), PoolIntArray( 343, 341, 344 ), PoolIntArray( 348, 347, 345 ), PoolIntArray( 345, 347, 346 ), PoolIntArray( 352, 351, 349 ), PoolIntArray( 349, 351, 350 ), PoolIntArray( 356, 355, 353 ), PoolIntArray( 353, 355, 354 ), PoolIntArray( 359, 358, 357 ), PoolIntArray( 363, 362, 360 ), PoolIntArray( 360, 362, 361 ), PoolIntArray( 365, 364, 366 ), PoolIntArray( 366, 364, 367 ), PoolIntArray( 367, 364, 368 ), PoolIntArray( 370, 369, 371 ), PoolIntArray( 371, 369, 372 ), PoolIntArray( 374, 373, 375 ), PoolIntArray( 375, 373, 376 ), PoolIntArray( 382, 381, 377 ), PoolIntArray( 377, 381, 378 ), PoolIntArray( 378, 381, 379 ), PoolIntArray( 379, 381, 380 ), PoolIntArray( 386, 385, 383 ), PoolIntArray( 383, 385, 384 ), PoolIntArray( 390, 389, 387 ), PoolIntArray( 387, 389, 388 ), PoolIntArray( 394, 393, 391 ), PoolIntArray( 391, 393, 392 ), PoolIntArray( 398, 397, 395 ), PoolIntArray( 395, 397, 396 ), PoolIntArray( 402, 401, 399 ), PoolIntArray( 399, 401, 400 ), PoolIntArray( 406, 405, 403 ), PoolIntArray( 403, 405, 404 ), PoolIntArray( 410, 409, 407 ), PoolIntArray( 407, 409, 408 ), PoolIntArray( 414, 413, 411 ), PoolIntArray( 411, 413, 412 ), PoolIntArray( 418, 417, 415 ), PoolIntArray( 415, 417, 416 ), PoolIntArray( 420, 419, 421 ), PoolIntArray( 421, 419, 422 ), PoolIntArray( 424, 423, 425 ), PoolIntArray( 425, 423, 426 ), PoolIntArray( 429, 428, 427 ), PoolIntArray( 432, 431, 430 ), PoolIntArray( 435, 434, 433 ), PoolIntArray( 438, 437, 436 ), PoolIntArray( 441, 440, 442 ), PoolIntArray( 442, 440, 439 ), PoolIntArray( 442, 439, 443 ), PoolIntArray( 444, 448, 445 ), PoolIntArray( 445, 448, 446 ), PoolIntArray( 446, 448, 447 ), PoolIntArray( 450, 449, 451 ), PoolIntArray( 451, 449, 452 ), PoolIntArray( 455, 454, 453 ), PoolIntArray( 457, 456, 458 ), PoolIntArray( 458, 456, 459 ), PoolIntArray( 463, 462, 460 ), PoolIntArray( 460, 462, 461 ), PoolIntArray( 467, 466, 464 ), PoolIntArray( 464, 466, 465 ), PoolIntArray( 469, 468, 470 ), PoolIntArray( 470, 468, 471 ), PoolIntArray( 474, 473, 472 ), PoolIntArray( 476, 475, 477 ), PoolIntArray( 477, 475, 478 ), PoolIntArray( 480, 479, 481 ), PoolIntArray( 481, 479, 482 ), PoolIntArray( 484, 483, 485 ), PoolIntArray( 485, 483, 486 ), PoolIntArray( 490, 489, 487 ), PoolIntArray( 487, 489, 488 ), PoolIntArray( 493, 492, 491 ), PoolIntArray( 496, 495, 494 ), PoolIntArray( 500, 499, 497 ), PoolIntArray( 497, 499, 498 ), PoolIntArray( 502, 501, 503 ), PoolIntArray( 503, 501, 504 ), PoolIntArray( 508, 507, 505 ), PoolIntArray( 505, 507, 506 ), PoolIntArray( 512, 511, 509 ), PoolIntArray( 509, 511, 510 ), PoolIntArray( 515, 514, 513 ), PoolIntArray( 518, 517, 516 ), PoolIntArray( 522, 521, 519 ), PoolIntArray( 519, 521, 520 ), PoolIntArray( 524, 523, 525 ), PoolIntArray( 525, 523, 526 ), PoolIntArray( 529, 528, 530 ), PoolIntArray( 530, 528, 527 ), PoolIntArray( 530, 527, 531 ), PoolIntArray( 533, 532, 534 ), PoolIntArray( 534, 532, 535 ), PoolIntArray( 539, 538, 536 ), PoolIntArray( 536, 538, 537 ), PoolIntArray( 543, 542, 540 ), PoolIntArray( 540, 542, 541 ), PoolIntArray( 545, 544, 546 ), PoolIntArray( 546, 544, 547 ), PoolIntArray( 549, 548, 550 ), PoolIntArray( 550, 548, 551 ), PoolIntArray( 551, 548, 552 ), PoolIntArray( 554, 553, 555 ), PoolIntArray( 555, 553, 556 ), PoolIntArray( 559, 558, 557 ), PoolIntArray( 563, 562, 560 ), PoolIntArray( 560, 562, 561 ), PoolIntArray( 565, 564, 566 ), PoolIntArray( 566, 564, 567 ), PoolIntArray( 569, 568, 570 ), PoolIntArray( 570, 568, 571 ), PoolIntArray( 575, 574, 572 ), PoolIntArray( 572, 574, 573 ), PoolIntArray( 579, 578, 576 ), PoolIntArray( 576, 578, 577 ), PoolIntArray( 585, 584, 580 ), PoolIntArray( 580, 584, 581 ), PoolIntArray( 581, 584, 582 ), PoolIntArray( 582, 584, 583 ), PoolIntArray( 589, 588, 586 ), PoolIntArray( 586, 588, 587 ), PoolIntArray( 593, 592, 590 ), PoolIntArray( 590, 592, 591 ), PoolIntArray( 595, 594, 596 ), PoolIntArray( 596, 594, 597 ), PoolIntArray( 599, 598, 600 ), PoolIntArray( 600, 598, 601 ), PoolIntArray( 603, 602, 604 ), PoolIntArray( 604, 602, 605 ), PoolIntArray( 609, 608, 606 ), PoolIntArray( 606, 608, 607 ), PoolIntArray( 613, 612, 610 ), PoolIntArray( 610, 612, 611 ), PoolIntArray( 617, 616, 614 ), PoolIntArray( 614, 616, 615 ), PoolIntArray( 621, 620, 618 ), PoolIntArray( 618, 620, 619 ), PoolIntArray( 625, 624, 622 ), PoolIntArray( 622, 624, 623 ), PoolIntArray( 627, 626, 628 ), PoolIntArray( 628, 626, 629 ), PoolIntArray( 633, 632, 630 ), PoolIntArray( 630, 632, 631 ), PoolIntArray( 637, 636, 634 ), PoolIntArray( 634, 636, 635 ), PoolIntArray( 641, 640, 638 ), PoolIntArray( 638, 640, 639 ), PoolIntArray( 645, 644, 642 ), PoolIntArray( 642, 644, 643 ), PoolIntArray( 649, 648, 646 ), PoolIntArray( 646, 648, 647 ), PoolIntArray( 652, 651, 650 ), PoolIntArray( 654, 653, 655 ), PoolIntArray( 655, 653, 656 ), PoolIntArray( 660, 659, 657 ), PoolIntArray( 657, 659, 658 ), PoolIntArray( 664, 663, 661 ), PoolIntArray( 661, 663, 662 ), PoolIntArray( 666, 665, 667 ), PoolIntArray( 667, 665, 668 ), PoolIntArray( 672, 671, 669 ), PoolIntArray( 669, 671, 670 ), PoolIntArray( 676, 675, 673 ), PoolIntArray( 673, 675, 674 ), PoolIntArray( 680, 679, 677 ), PoolIntArray( 677, 679, 678 ) ]
 
 [node name="World" type="Spatial"]
+script = ExtResource( 10 )
 
 [node name="FPSCounter" type="Label" parent="."]
 margin_right = 40.0
@@ -42,41 +51,671 @@ margin_bottom = 38.0
 text = "E = Flashlight
 WASD = Move"
 
-[node name="Floor" parent="." instance=ExtResource( 5 )]
-transform = Transform( 64, 0, 0, 0, 1, 0, 0, 0, 64, 0, -2, 0 )
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 7 )
 
-[node name="Sun" type="DirectionalLight" parent="WorldEnvironment"]
-transform = Transform( -0.5, -0.296198, 0.813798, 0, 0.939693, 0.34202, -0.866025, 0.17101, -0.469847, 0, 0, 0 )
-layers = 262144
-light_color = Color( 0.584314, 0.282353, 0.0352941, 1 )
-light_cull_mask = 4294443007
-shadow_enabled = true
-
-[node name="Player" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
-
 [node name="key" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, -0.476326, -5.30942 )
+transform = Transform( 0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, -0.309621, 0 )
 
 [node name="Exit" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.03822, 0, -3.30747 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, -35 )
 script = ExtResource( 8 )
 
 [node name="Exit_Light" type="OmniLight" parent="Exit"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
 light_color = Color( 1, 0, 0, 1 )
 light_energy = 2.174
+omni_range = 8.0
 omni_attenuation = 2.2974
 
 [node name="CollisionShape" type="CollisionShape" parent="Exit"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
 shape = SubResource( 9 )
 
-[node name="Wall" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35862, -8.11451 )
-
 [node name="Ceiling" parent="." instance=ExtResource( 7 )]
-transform = Transform( 64, 0, 0, 0, 1, 0, 0, 0, 64, 0, 3.9363, 0 )
+transform = Transform( 64, 0, 0, 0, 1, 0, 0, 0, 64, 0, 4, 0 )
+
+[node name="Lamps" type="Node" parent="."]
+
+[node name="Lamp" parent="Lamps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 36 )
+
+[node name="Lamp4" parent="Lamps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 25 )
+
+[node name="Lamp6" parent="Lamps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 2, 25 )
+
+[node name="Lamp7" parent="Lamps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2, 30 )
+
+[node name="Lamp5" parent="Lamps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 15 )
+
+[node name="Lamp8" parent="Lamps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 2, 15 )
+
+[node name="Lamp9" parent="Lamps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 2, -1 )
+
+[node name="Lamp11" parent="Lamps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, -1 )
+
+[node name="Lamp12" parent="Lamps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, -16 )
+
+[node name="Lamp13" parent="Lamps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, -37 )
+
+[node name="Lamp14" parent="Lamps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, -13 )
+
+[node name="Lamp10" parent="Lamps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 2, -1 )
+
+[node name="Lamp2" parent="Lamps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 2, 36 )
+
+[node name="Lamp3" parent="Lamps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 2, 17 )
+
+[node name="Nav" type="Node" parent="."]
+
+[node name="Navigation" type="Navigation" parent="Nav"]
+
+[node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Nav/Navigation"]
+navmesh = SubResource( 10 )
+
+[node name="Floor" parent="Nav/Navigation/NavigationMeshInstance" instance=ExtResource( 5 )]
+transform = Transform( 40, 0, 0, 0, 1, 0, 0, 0, 40, 0, -2, 0 )
+
+[node name="Walls" type="Node" parent="Nav/Navigation/NavigationMeshInstance"]
+
+[node name="Wall" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 37.0148, 1.32081, -32.9868 )
+
+[node name="Wall2" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 37.0148, 1.32081, -38.9868 )
+
+[node name="Wall72" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35.9852, 1.32081, 39.0132 )
+
+[node name="Wall73" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35.9852, 1.32081, 33.0132 )
+
+[node name="Wall74" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -30.9852, 1.32081, 33.0132 )
+
+[node name="Wall75" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25.9852, 1.32081, 33.0132 )
+
+[node name="Wall76" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.9852, 1.32081, 33.0132 )
+
+[node name="Wall77" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9852, 1.32081, 33.0132 )
+
+[node name="Wall78" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9852, 1.32081, 33.0132 )
+
+[node name="Wall79" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.98523, 1.32081, 33.0132 )
+
+[node name="Wall81" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.01477, 1.32081, 33.0132 )
+
+[node name="Wall82" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.01477, 1.32081, 33.0132 )
+
+[node name="Wall83" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0148, 1.32081, 33.0132 )
+
+[node name="Wall84" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.0148, 1.32081, 33.0132 )
+
+[node name="Wall97" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.01477, 1.32081, 28.0132 )
+
+[node name="Wall98" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.01477, 1.32081, 28.0132 )
+
+[node name="Wall102" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.01477, 1.32081, 18.0132 )
+
+[node name="Wall103" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.01477, 1.32081, 18.0132 )
+
+[node name="Wall104" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0148, 1.32081, 18.0132 )
+
+[node name="Wall105" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.0148, 1.32081, 18.0132 )
+
+[node name="Wall106" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.0148, 1.32081, 18.0132 )
+
+[node name="Wall138" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.0148, 1.32081, -16.9868 )
+
+[node name="Wall170" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 37.0148, 1.32081, -11.9868 )
+
+[node name="Wall173" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0148, 1.32081, -11.9868 )
+
+[node name="Wall107" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.0148, 1.32081, 22.0132 )
+
+[node name="Wall108" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.0148, 1.32081, 22.0132 )
+
+[node name="Wall109" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0148, 1.32081, 22.0132 )
+
+[node name="Wall110" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.0148, 1.32081, 22.0132 )
+
+[node name="Wall111" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.01477, 1.32081, 22.0132 )
+
+[node name="Wall99" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0148, 1.32081, 28.0132 )
+
+[node name="Wall100" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.0148, 1.32081, 28.0132 )
+
+[node name="Wall101" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.0148, 1.32081, 28.0132 )
+
+[node name="Wall85" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.0148, 1.32081, 33.0132 )
+
+[node name="Wall90" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34.0148, 1.32081, 13.0132 )
+
+[node name="Wall91" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 37.0148, 1.32081, 13.0132 )
+
+[node name="Wall86" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.0148, 1.32081, 33.0132 )
+
+[node name="Wall23" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, -35.9868 )
+
+[node name="Wall40" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, -29.9868 )
+
+[node name="Wall41" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, -24.9868 )
+
+[node name="Wall42" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, -19.9868 )
+
+[node name="Wall43" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, -14.9868 )
+
+[node name="Wall44" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, -9.98676 )
+
+[node name="Wall45" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, -4.98676 )
+
+[node name="Wall46" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, 0.013237 )
+
+[node name="Wall47" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, 5.01324 )
+
+[node name="Wall48" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, 10.0132 )
+
+[node name="Wall49" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, 15.0132 )
+
+[node name="Wall50" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, 20.0132 )
+
+[node name="Wall51" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, 25.0132 )
+
+[node name="Wall80" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 32.0148, 1.32081, 31.0132 )
+
+[node name="Wall87" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 32.0148, 1.32081, 26.0132 )
+
+[node name="Wall88" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 32.0148, 1.32081, 21.0132 )
+
+[node name="Wall92" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.98523, 1.32081, 30.0132 )
+
+[node name="Wall93" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.98523, 1.32081, 25.0132 )
+
+[node name="Wall94" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.98523, 1.32081, 20.0132 )
+
+[node name="Wall130" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.98523, 1.32081, 15.0132 )
+
+[node name="Wall149" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.98523, 1.32081, 10.0132 )
+
+[node name="Wall150" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.98523, 1.32081, 5.01324 )
+
+[node name="Wall151" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.98523, 1.32081, 0.013237 )
+
+[node name="Wall152" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.98523, 1.32081, -4.98676 )
+
+[node name="Wall153" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.98523, 1.32081, -9.98676 )
+
+[node name="Wall154" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.98523, 1.32081, -14.9868 )
+
+[node name="Wall155" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.98523, 1.32081, -19.9868 )
+
+[node name="Wall156" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.98523, 1.32081, -24.9868 )
+
+[node name="Wall157" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.98523, 1.32081, -21.9868 )
+
+[node name="Wall158" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.98523, 1.32081, -26.9868 )
+
+[node name="Wall159" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.98523, 1.32081, -31.9868 )
+
+[node name="Wall160" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.98523, 1.32081, -36.9868 )
+
+[node name="Wall95" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.01477, 1.32081, 20.0132 )
+
+[node name="Wall112" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 26.0148, 1.32081, 20.0132 )
+
+[node name="Wall96" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.01477, 1.32081, 30.0132 )
+
+[node name="Wall89" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 32.0148, 1.32081, 16.0132 )
+
+[node name="Wall117" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.0148, 1.32081, 10.0132 )
+
+[node name="Wall139" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.0148, 1.32081, -4.98676 )
+
+[node name="Wall140" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.0148, 1.32081, -9.98676 )
+
+[node name="Wall141" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.0148, 1.32081, -14.9868 )
+
+[node name="Wall131" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.0148, 1.32081, 5.01324 )
+
+[node name="Wall132" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.0148, 1.32081, 5.01324 )
+
+[node name="Wall133" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.0148, 1.32081, 10.0132 )
+
+[node name="Wall135" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.0148, 1.32081, -4.98676 )
+
+[node name="Wall174" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.0148, 1.32081, -9.98676 )
+
+[node name="Wall175" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.0148, 1.32081, -14.9868 )
+
+[node name="Wall176" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.01477, 1.32081, -9.98676 )
+
+[node name="Wall178" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.01477, 1.32081, -19.9868 )
+
+[node name="Wall179" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.01477, 1.32081, -24.9868 )
+
+[node name="Wall180" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.01477, 1.32081, -29.9868 )
+
+[node name="Wall161" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.01477, 1.32081, 5.01324 )
+
+[node name="Wall168" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.01477, 1.32081, -4.98676 )
+
+[node name="Wall146" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.01477, 1.32081, 0.013237 )
+
+[node name="Wall177" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.01477, 1.32081, -5.98676 )
+
+[node name="Wall183" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.01477, 1.32081, -10.9868 )
+
+[node name="Wall184" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.01477, 1.32081, -15.9868 )
+
+[node name="Wall185" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.01477, 1.32081, -20.9868 )
+
+[node name="Wall186" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.01477, 1.32081, -25.9868 )
+
+[node name="Wall187" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.01477, 1.32081, -30.9868 )
+
+[node name="Wall52" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, 30.0132 )
+
+[node name="Wall53" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, 36.0132 )
+
+[node name="Wall54" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.0148, 1.32081, 33.0132 )
+
+[node name="Wall55" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, -35.9868 )
+
+[node name="Wall71" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, -34.9868 )
+
+[node name="Wall56" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, -29.9868 )
+
+[node name="Wall57" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, -24.9868 )
+
+[node name="Wall58" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, -19.9868 )
+
+[node name="Wall59" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, -14.9868 )
+
+[node name="Wall60" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, -9.98676 )
+
+[node name="Wall61" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, -4.98676 )
+
+[node name="Wall62" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, 0.013237 )
+
+[node name="Wall63" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, 5.01324 )
+
+[node name="Wall64" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, 10.0132 )
+
+[node name="Wall65" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, 15.0132 )
+
+[node name="Wall66" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, 20.0132 )
+
+[node name="Wall67" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, 25.0132 )
+
+[node name="Wall68" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, 30.0132 )
+
+[node name="Wall69" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, 36.0132 )
+
+[node name="Wall70" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.9852, 1.32081, 33.0132 )
+
+[node name="Wall3" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0148, 1.32081, -38.9868 )
+
+[node name="Wall4" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.0148, 1.32081, -38.9868 )
+
+[node name="Wall5" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.0148, 1.32081, -38.9868 )
+
+[node name="Wall6" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.0148, 1.32081, -32.9868 )
+
+[node name="Wall9" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0148, 1.32081, -32.9868 )
+
+[node name="Wall181" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0148, 1.32081, -32.9868 )
+
+[node name="Wall182" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0148, 1.32081, -32.9868 )
+
+[node name="Wall10" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0148, 1.32081, -38.9868 )
+
+[node name="Wall11" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0148, 1.32081, -38.9868 )
+
+[node name="Wall12" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.01477, 1.32081, -38.9868 )
+
+[node name="Wall13" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.01477, 1.32081, -38.9868 )
+
+[node name="Wall14" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98523, 1.32081, -38.9868 )
+
+[node name="Wall15" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.98523, 1.32081, -38.9868 )
+
+[node name="Wall16" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9852, 1.32081, -38.9868 )
+
+[node name="Wall18" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9852, 1.32081, -38.9868 )
+
+[node name="Wall19" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -22.9852, 1.32081, -38.9868 )
+
+[node name="Wall20" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -27.9852, 1.32081, -38.9868 )
+
+[node name="Wall21" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.9852, 1.32081, -38.9868 )
+
+[node name="Wall22" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -37.9852, 1.32081, -38.9868 )
+
+[node name="Wall17" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9852, 1.32081, -38.9868 )
+
+[node name="Wall24" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 37.0148, 1.32081, 39.0132 )
+
+[node name="Wall25" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0148, 1.32081, 39.0132 )
+
+[node name="Wall26" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.0148, 1.32081, 39.0132 )
+
+[node name="Wall27" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.0148, 1.32081, 39.0132 )
+
+[node name="Wall28" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0148, 1.32081, 39.0132 )
+
+[node name="Wall29" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0148, 1.32081, 39.0132 )
+
+[node name="Wall30" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.01477, 1.32081, 39.0132 )
+
+[node name="Wall31" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.01477, 1.32081, 39.0132 )
+
+[node name="Wall32" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98523, 1.32081, 39.0132 )
+
+[node name="Wall33" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.98523, 1.32081, 39.0132 )
+
+[node name="Wall34" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9852, 1.32081, 39.0132 )
+
+[node name="Wall35" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -22.9852, 1.32081, 39.0132 )
+
+[node name="Wall36" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -27.9852, 1.32081, 39.0132 )
+
+[node name="Wall37" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.9852, 1.32081, 39.0132 )
+
+[node name="Wall38" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -37.9852, 1.32081, 39.0132 )
+
+[node name="Wall39" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9852, 1.32081, 39.0132 )
+
+[node name="Wall113" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35.9852, 1.32081, 13.0132 )
+
+[node name="Wall114" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 37.0148, 1.32081, 13.0132 )
+
+[node name="Wall115" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0148, 1.32081, 13.0132 )
+
+[node name="Wall134" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.0148, 1.32081, 3.01324 )
+
+[node name="Wall169" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.0148, 1.32081, -2.98676 )
+
+[node name="Wall142" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0148, 1.32081, 3.01324 )
+
+[node name="Wall143" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0148, 1.32081, 3.01324 )
+
+[node name="Wall166" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0148, 1.32081, -6.98676 )
+
+[node name="Wall167" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0148, 1.32081, -6.98676 )
+
+[node name="Wall190" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0148, 1.32081, -17.9868 )
+
+[node name="Wall191" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0148, 1.32081, -17.9868 )
+
+[node name="Wall192" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0148, 1.32081, -11.9868 )
+
+[node name="Wall193" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0148, 1.32081, -11.9868 )
+
+[node name="Wall147" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01477, 1.32081, 3.01324 )
+
+[node name="Wall188" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98523, 1.32081, -7.98676 )
+
+[node name="Wall189" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01477, 1.32081, -7.98676 )
+
+[node name="Wall148" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01477, 1.32081, -2.98676 )
+
+[node name="Wall144" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0148, 1.32081, -2.98676 )
+
+[node name="Wall145" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0148, 1.32081, -2.98676 )
+
+[node name="Wall136" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 31.0148, 1.32081, 5.01324 )
+
+[node name="Wall137" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 31.0148, 1.32081, 10.0132 )
+
+[node name="Wall171" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 31.0148, 1.32081, -9.98676 )
+
+[node name="Wall172" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 31.0148, 1.32081, -4.98676 )
+
+[node name="Wall116" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.0148, 1.32081, 13.0132 )
+
+[node name="Wall118" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0148, 1.32081, 13.0132 )
+
+[node name="Wall119" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0148, 1.32081, 13.0132 )
+
+[node name="Wall162" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0148, 1.32081, 7.01324 )
+
+[node name="Wall163" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0148, 1.32081, 7.01324 )
+
+[node name="Wall164" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01477, 1.32081, 7.01324 )
+
+[node name="Wall165" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98523, 1.32081, 7.01324 )
+
+[node name="Wall120" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.01477, 1.32081, 13.0132 )
+
+[node name="Wall121" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.01477, 1.32081, 13.0132 )
+
+[node name="Wall122" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98523, 1.32081, 13.0132 )
+
+[node name="Wall123" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.98523, 1.32081, 13.0132 )
+
+[node name="Wall124" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9852, 1.32081, 13.0132 )
+
+[node name="Wall125" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -22.9852, 1.32081, 13.0132 )
+
+[node name="Wall126" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -27.9852, 1.32081, 13.0132 )
+
+[node name="Wall127" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.9852, 1.32081, 13.0132 )
+
+[node name="Wall128" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -37.9852, 1.32081, 13.0132 )
+
+[node name="Wall129" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9852, 1.32081, 13.0132 )
+
+[node name="Wall7" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.0148, 1.32081, -32.9868 )
+
+[node name="Wall8" parent="Nav/Navigation/NavigationMeshInstance/Walls" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0148, 1.32081, -32.9868 )
+
+[node name="Player" parent="Nav/Navigation" instance=ExtResource( 3 )]
+transform = Transform( 1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -35, -1, 36 )
+
+[node name="Monster" parent="Nav/Navigation" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, -1, 37 )
+
+[node name="Monsters" type="Node" parent="."]
 
 [connection signal="body_entered" from="Exit" to="Exit" method="_on_Exit_body_entered"]

@@ -4,7 +4,8 @@ var velocity = Vector3(0, 0, 0)
 var direction = Vector3(0, 0, 0) # Used for animation
 
 const JUMP = 4
-const PLAYER_MOVE_SPEED = 4
+const PLAYER_MOVE_SPEED = 5
+
 
 onready var Camera = $Camera
 onready var GRAVITY = ProjectSettings.get("physics/3d/default_gravity") / 500

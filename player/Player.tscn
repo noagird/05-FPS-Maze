@@ -32,3 +32,6 @@ shape = SubResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, -1.50996e-07, 0, 1.50996e-07, 1, 0, 0, 0, -1, 0, 0, 0 )
+
+[node name="Position3D" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97769, 0 )
