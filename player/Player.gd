@@ -2,6 +2,8 @@ extends KinematicBody
 
 var velocity = Vector3(0, 0, 0)
 var direction = Vector3(0, 0, 0) # Used for animation
+var damage = 100
+var health = 100
 
 const JUMP = 4
 const PLAYER_MOVE_SPEED = 5
@@ -10,6 +12,8 @@ const PLAYER_MOVE_SPEED = 5
 onready var Camera = $Camera
 onready var GRAVITY = ProjectSettings.get("physics/3d/default_gravity") / 500
 onready var animation_tree = $Player/AnimationTree
+onready var aimcast = $Camera/AimCast
+onready var muzzle = $Camera/Gun/Muzzle
 
 func move_forward_back(in_direction: int):
 	"""
@@ -38,6 +42,8 @@ func _process(_delta: float):
 	self.velocity = Vector3(0, self.velocity.y, 0)
 	self.direction = Vector3(0, 0, 0)
 	
+
+			
 	if Input.is_action_pressed("ui_up"):
 		self.move_forward_back(-1)
 
@@ -52,6 +58,13 @@ func _process(_delta: float):
 
 func _physics_process(_delta: float):
 	var snap_vector = Vector3(0, -1, 0)
+	
+	if Input.is_action_just_pressed("fire"):
+		if aimcast.is_colliding():
+			var target = aimcast.get_collider()
+			if target.is_in_group("Enemy"):
+				print("hit")
+				target.health -= damage
 	
 	if Input.is_action_just_pressed("action_jump"):
 		if self.is_on_floor():
@@ -75,3 +88,5 @@ func _physics_process(_delta: float):
 		Vector3(0, +1, 0),
 		true
 	)
+	if health <= 0:
+		var _scene = get_tree().change_scene("res://Menus/Lose.tscn")
