@@ -14,7 +14,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="FPS"
+config/name="FPS Maze"
 run/main_scene="res://Menus/Main Menu.tscn"
 config/icon="res://icon.png"
 

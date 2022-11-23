@@ -4,7 +4,6 @@ const speed = 5
 var target_player = null
 var health = 200
 var damage = 200
-
 func _physics_process(_delta):
 	# Query the `NavigationAgent` to know the next free to reach location.
 	$NavigationAgent.set_target_location(get_node("../Player").get_global_transform().origin)

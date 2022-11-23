@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://FPSCounter.gd" type="Script" id=1]
 [ext_resource path="res://Key/key.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Exit/Exit.gd" type="Script" id=8]
 [ext_resource path="res://Monster/Monster.tscn" type="PackedScene" id=9]
 [ext_resource path="res://environment/World.gd" type="Script" id=10]
+[ext_resource path="res://Assets/Audio/Ambience.wav" type="AudioStream" id=11]
 
 [sub_resource type="ProceduralSky" id=8]
 sky_top_color = Color( 0.0588235, 0.337255, 0.556863, 1 )
@@ -733,5 +734,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -1, -15 )
 
 [node name="Monster8" parent="Nav/Navigation" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, -13 )
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -5.0
 
 [connection signal="body_entered" from="Exit" to="Exit" method="_on_Exit_body_entered"]

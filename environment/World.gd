@@ -7,3 +7,4 @@ onready var nav = $Nav/Navigation
 func _ready():
 #	monster.set_nav(nav)
 	monster.set_target(player)
+	$Ambience.playing = true

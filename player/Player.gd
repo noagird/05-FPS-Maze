@@ -60,10 +60,10 @@ func _physics_process(_delta: float):
 	var snap_vector = Vector3(0, -1, 0)
 	
 	if Input.is_action_just_pressed("fire"):
+		$Gun.playing = true
 		if aimcast.is_colliding():
 			var target = aimcast.get_collider()
 			if target.is_in_group("Enemy"):
-				print("hit")
 				target.health -= damage
 	
 	if Input.is_action_just_pressed("action_jump"):
